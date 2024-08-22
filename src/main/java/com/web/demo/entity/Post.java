@@ -20,12 +20,13 @@ import lombok.ToString;
 @Entity
 public class Post {
 	@Id
+	// 오라클 11g 미지원 , 18이상은 지원
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// 오라클 11g에 맞게 수정
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_generator1")
-	@SequenceGenerator(name = "sequence_generator1", sequenceName = "sequence_name1", allocationSize = 1)
-	  private Integer id;
+    @SequenceGenerator(name = "sequence_generator1", sequenceName = "sequence_name1", allocationSize = 1)
+	private Integer id;
 	
-
 	@Column(length = 128)
 	private String subject;
 	
@@ -38,5 +39,5 @@ public class Post {
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	private List<Review> reviewList;
 	
-//	 @Transient => 클레스 속성으로만 존재
+	// @Transient => 클레스 속성으로만 존재
 }

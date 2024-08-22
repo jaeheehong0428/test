@@ -16,15 +16,11 @@ import lombok.Setter;
 @Entity
 public class SnsUser {
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_generator3")
-	@SequenceGenerator(name = "sequence_generator3", sequenceName = "sequence_name3", allocationSize = 1)
-	  private Long id;	
+    @SequenceGenerator(name = "sequence_generator3", sequenceName = "sequence_name3", allocationSize = 1)
+	private Long id;
 	
-
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Long id;
-
 	@Column(unique = true)
 	private String username;
 	
@@ -35,5 +31,4 @@ public class SnsUser {
 	
 	// FIXME #REFACT: 가입일 추가
 	private LocalDateTime regDate;
-
 }

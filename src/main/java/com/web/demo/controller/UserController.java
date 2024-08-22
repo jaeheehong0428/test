@@ -76,7 +76,7 @@ public class UserController {
 		// 1-1. 현재시간 + 특정기간 = 만료시간으로 엑세스 토큰 발급
 		String accessToken  = this.tokenProvider.generateToken(snsUser, Duration.ofDays(7));
 		// 1-2. 과거 만료시간으로 엑세스 토큰 발급
-//		String accessToken  = this.tokenProvider.reverseGenerateToken(snsUser, Duration.ofDays(7));
+		//String accessToken  = this.tokenProvider.reverseGenerateToken(snsUser, Duration.ofDays(7));
 		String refreshToekn = this.tokenProvider.generateToken(snsUser, Duration.ofDays(30));
 		// 2. 리프레시 토큰 디비에 저장
 		this.tokenService.saveRefreshToken(snsUser.getId(), refreshToekn);

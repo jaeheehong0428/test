@@ -33,12 +33,14 @@ import lombok.RequiredArgsConstructor;
 public class TokenAuthenticationFilter extends OncePerRequestFilter{
 	private final TokenProvider tokenProvider;
 	// 생성자 방식으로 정의하면 줄줄이 수정해야함
-//	@Autowired
-//	private UtilService utilService;
-//	@Autowired
-//	private TokenService tokenService; 
+	//	@Autowired
+	//	private UtilService utilService;
+	//	@Autowired
+	//	private TokenService tokenService;
+	// 상수
 	private final static String HEADER_AUTH = "Authentication";
-	private final static String ACCESS_TOKEN_PREFIX ="Bearer";	
+	private final static String ACCESS_TOKEN_PREFIX = "Bearer ";
+	
 	/**
 	 * 필터링 내용 구현
 	 * JWT 토큰 사용하여 인증 => Bearer 토큰 형식을 취함
@@ -73,16 +75,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
 				refreshToken = cookie.getValue();
 			}
 		}
-		// 웹앱, SPA 등 서비스에서 진입했을때 => restapi 방식으로 진입했을때
+		// 웹앱(모바일), SPA등 서비스에서 진입했을때 => restapi 방식으로 진입했을때 
 		if( accessToken.isEmpty() ) {
-	        // 쿠키에서 토큰을 뽑아봤는데 없었다 => http 헤더에서 추출
-	        // 엑세스 토큰만 체크, 리프레시는 생략
-	        String token_candidate = request.getHeader(HEADER_AUTH);
-	        if(token_candidate != null
-	                && token_candidate.startsWith(ACCESS_TOKEN_PREFIX) ) {
-	            accessToken = token_candidate.substring(ACCESS_TOKEN_PREFIX.length());
-	        }
-	    }
+			// 쿠키에서 토큰을 뽑아봤는데 없었다 => http 헤더에서 추출
+			// 엑세스 토큰만 체크, 리프레시는 생략
+			String token_candidate = request.getHeader(HEADER_AUTH);
+			if(token_candidate != null 
+					&& token_candidate.startsWith(ACCESS_TOKEN_PREFIX) ) {
+				accessToken = token_candidate.substring(ACCESS_TOKEN_PREFIX.length());
+			}			
+		}
 		System.out.println(accessToken);
 		System.out.println(refreshToken);
 		

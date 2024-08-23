@@ -1,3 +1,4 @@
+
 package com.web.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,14 @@ public class SecurityConfig {
 			.authorizeHttpRequests( ( a ) -> a.requestMatchers
 				( new AntPathRequestMatcher("/h2-console/**") ).permitAll() )
 			.authorizeHttpRequests( ( a ) -> a.requestMatchers
+					( new AntPathRequestMatcher("/api/**") ).permitAll() )
+			.authorizeHttpRequests( ( a ) -> a.requestMatchers
 				( new AntPathRequestMatcher("/**") ).authenticated() )		
-			
+			//.csrf().disable()
 			.csrf( (b) -> 
 			b.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+			.csrf( (b) -> 
+			b.ignoringRequestMatchers(new AntPathRequestMatcher("/api/**")))
 			.headers( (c)-> c.addHeaderWriter(new XFrameOptionsHeaderWriter(
 					XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)) )
 			

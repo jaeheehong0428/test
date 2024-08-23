@@ -21,3 +21,4 @@ public class FileUploadResultDto {
 		this.message = message;
 	}
 }
+
